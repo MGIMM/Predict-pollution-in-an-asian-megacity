@@ -45,7 +45,8 @@ def DataOutput(filename,data,index,date = "None"):
     return 'The file has been created !'
 
 
-
+# plot histogram
+# def PlotHist(data,index)
 
 
 
