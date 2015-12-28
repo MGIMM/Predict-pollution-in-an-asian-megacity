@@ -33,3 +33,4 @@ SimpleRegression(X,Y,X_hour,Y_hour,Object): Output MSE and $R^2$
 * add features to DataSample function
 * add SimpleRegression function
 * add nominal variable analysis (boxplot, Anova finished)
+* bug fixed for anova

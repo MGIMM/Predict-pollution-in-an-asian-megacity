@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
+from sklearn import linear_model
+from scipy import stats
 
 #function for data importing
 def DataImporting():
@@ -22,14 +24,23 @@ def DataImporting():
     return Xtrain,Ytrain,Xtest,VarNames
 
 #function for data sampling
-def DataSample(data,index,date = 'None'):
+def DataSample(data,index,date = 'None',sample_method = "in",keep_date = False):
     "X is the data set"
     "index is the variable name"
     "date in the date, you can add hours after the date"
-    c = [0]
+    if keep_date == True:
+        c = [0]
+    else:
+        c = []
     for i in range(len(data.columns.values)):
-        if index in data.columns.values[i]:
-            c.append(i)
+        
+        if sample_method =="in":
+            if index in data.columns.values[i]:
+                c.append(i)
+        elif sample_method =="equal":
+            if index == data.columns.values[i]:
+                c.append(i)
+                
     if date == 'None':        
         return data.iloc[:,c]
     else:
@@ -45,10 +56,29 @@ def DataOutput(filename,data,index,date = "None"):
     return 'The file has been created !'
 
 
+def SimpleRegression(X,Y,X_hour,Y_hour,Object):
+    bound = np.shape(DataSample(X,Object))[1]
+    X_input = DataSample(X,Object).iloc[:,range(24+X_hour,bound,25)]
+    Y_output = DataSample(Y,str(Object)+"_04143_"+str(Y_hour),sample_method='equal')
+    lm = linear_model.LinearRegression()
+    lm.fit(X_input,Y_output)
+    MSE = np.mean((Y_output - lm.predict(X_input)) ** 2)
+    R2 = lm.score(X_input,Y_output)
+    print 'MSE = ' + str(MSE) + '\n'
+    print 'R2 = ' + str(R2) + '\n'
+    return R2,MSE
+
 # plot histogram
 # def PlotHist(data,index)
 
-
+def MyAnova(X,Y,var):
+    IndexSet =list(set(X[var]))
+    TestList = {}
+    print 'IndexSet :',IndexSet
+    for i in range(len(IndexSet)):
+        TestList.update({str(IndexSet[i]) : Y.loc[X[var] == IndexSet[i]]})
+    anova = stats.f_oneway(*TestList.values())
+    return anova
 
 
     
