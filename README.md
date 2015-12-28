@@ -16,6 +16,8 @@ DataSample(data,index,date = 'None'):
     "X is the data set, index is the variable name, and date in the date, you can add hours after the date". It returns a dataframe.
 * #### DataOutput :
 DataOutput(filename,data,index,date = "None"): Output csv file in the folder sample data.
+* #### SimpleRegression : 
+SimpleRegression(X,Y,X_hour,Y_hour,Object): Output MSE and $R^2$
     
 ## schedule ：
 
@@ -26,3 +28,8 @@ DataOutput(filename,data,index,date = "None"): Output csv file in the folder sam
 * add DataImporting function ( found in PLUME_function.py ), finish analysis of var names
 * add DataSample function ( found in PLUME_function.py )
 * add DataOutput function ( the .csv file will be found in the folder "sample data")
+
+### 28-12-2015
+* add features to DataSample function
+* add SimpleRegression function
+* add nominal variable analysis (boxplot, test not finished)
