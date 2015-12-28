@@ -18,6 +18,8 @@ DataSample(data,index,date = 'None'):
 DataOutput(filename,data,index,date = "None"): Output csv file in the folder sample data.
 * #### SimpleRegression : 
 SimpleRegression(X,Y,X_hour,Y_hour,Object): Output MSE and $R^2$
+* #### MyAnova :
+MyAnova(X,Y,var,sub_group) = 'all': X:Xtrain, Y:labeled data, var : the object we want to study.
     
 ## schedule ：
 
@@ -33,4 +35,4 @@ SimpleRegression(X,Y,X_hour,Y_hour,Object): Output MSE and $R^2$
 * add features to DataSample function
 * add SimpleRegression function
 * add nominal variable analysis (boxplot, Anova finished)
-* bug fixed for anova
+* bug fixed for MyAnova and feature added
