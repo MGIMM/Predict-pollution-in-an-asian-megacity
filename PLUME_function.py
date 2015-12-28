@@ -32,15 +32,14 @@ def DataSample(data,index,date = 'None',sample_method = "in",keep_date = False):
         c = [0]
     else:
         c = []
-    for i in range(len(data.columns.values)):
-        
-        if sample_method =="in":
+    if sample_method =="in":
+        for i in range(len(data.columns.values)):
             if index in data.columns.values[i]:
                 c.append(i)
-        elif sample_method =="equal":
-            if index == data.columns.values[i]:
+    elif sample_method =="equal":
+        for i in range(len(data.columns.values)):
+            if index in data.columns.values[i]:
                 c.append(i)
-                
     if date == 'None':        
         return data.iloc[:,c]
     else:
@@ -71,13 +70,17 @@ def SimpleRegression(X,Y,X_hour,Y_hour,Object):
 # plot histogram
 # def PlotHist(data,index)
 
-def MyAnova(X,Y,var):
+def MyAnova(X,Y,var,sub_group = 'all'):
     IndexSet =list(set(X[var]))
     TestList = {}
     print 'IndexSet :',IndexSet
     for i in range(len(IndexSet)):
         TestList.update({str(IndexSet[i]) : Y.loc[X[var] == IndexSet[i]]})
-    anova = stats.f_oneway(*TestList.values())
+    if sub_group == 'all':
+        anova = stats.f_oneway(*TestList.values())
+    else:
+        SubTestList = {key : TestList[key] for key in sub_group} 
+        anova = stats.f_oneway(*SubTestList.values())
     return anova
 
 
