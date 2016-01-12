@@ -36,3 +36,6 @@ MyAnova(X,Y,var,sub_group) = 'all': X:Xtrain, Y:labeled data, var : the object w
 * add SimpleRegression function
 * add nominal variable analysis (boxplot, Anova finished)
 * bug fixed for MyAnova and feature added
+
+### 12-01-2016
+* add Lasso for NO2
