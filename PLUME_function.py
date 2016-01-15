@@ -26,20 +26,26 @@ def DataImporting():
 #function for data sampling
 def DataSample(data,index,date = 'None',sample_method = "in",keep_date = False):
     "X is the data set"
-    "index is the variable name"
+    "index is the variable name, separated by '-'"
     "date in the date, you can add hours after the date"
+    index_list = index.split('-')
+    
     if keep_date == True:
         c = [0]
     else:
         c = []
     if sample_method =="in":
-        for i in range(len(data.columns.values)):
-            if index in data.columns.values[i]:
-                c.append(i)
+        for index_name in index_list:
+            for i in range(len(data.columns.values)):
+
+                if index_name in data.columns.values[i]:
+                    c.append(i)
     elif sample_method =="equal":
-        for i in range(len(data.columns.values)):
-            if index in data.columns.values[i]:
-                c.append(i)
+        for index_name in index_list:
+            for i in range(len(data.columns.values)):
+
+                if index_name == data.columns.values[i]:
+                    c.append(i)
     if date == 'None':        
         return data.iloc[:,c]
     else:
@@ -48,6 +54,9 @@ def DataSample(data,index,date = 'None',sample_method = "in",keep_date = False):
             if date in data.date.values[i]:
                 d.append(i)
         return data.iloc[d,c]
+
+
+
 
 #output dataframe in csv format
 def DataOutput(filename,data,index,date = "None"):
